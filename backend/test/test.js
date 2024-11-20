@@ -38,5 +38,18 @@ describe("起動確認__test.js", () => {
             expect(res[0].count).to.equal(correct.count);
         });
     });
+
+
+        describe("new", () => {
+            it("should return 1st data id, option_number, count", async () => {
+
+                const url = apiURL + "/api/votes/";
+                const addData = {title: 'ラーメンは好き？', added_user_id: 2}
+                const resData = await axios.post(url, addData)
+                const res = resData.data
+                expect(res.title).to.equal(addData.title);
+                expect(res.added_user_id).to.equal(addData.added_user_id);
+            });
+        });
 });
 

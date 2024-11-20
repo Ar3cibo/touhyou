@@ -11,16 +11,15 @@ function setupServer() {
     // app.use("/", express.static("./public"));
 
     //vote_title///////////////////////////////////////
-    app.get('/api/votes/:added_user_id', async(req,res)=>{
+    app.get('/api/votes/:id', async(req,res)=>{
         console.log("--get-votes--")
         try {
-            const id = req.params.added_user_id
+            const id = Number(req.params.id)
             const resData = await handlerVoteTitle.find(db, id)
             res.status(200).json(resData)
         }catch(e){
             console.log(e)
         res.status(404).json(e)}
-
     })
 
     app.get('/api/votes', async(req,res)=>{
@@ -32,7 +31,18 @@ function setupServer() {
         }catch(e){
             console.log(e)
             res.status(404).json(e)}
+    })
 
+    app.post('/api/votes', async(req,res)=>{
+        console.log("--post-votes--")
+        try {
+            const params = req.body
+            const [resData] = await handlerVoteTitle.new(db,params)
+            console.log("--post-votes--",resData)
+            res.status(201).json(resData)
+        }catch(e){
+            console.log(e)
+            res.status(404).json(e)}
     })
 
     //user_title///////////////////////////////////////
@@ -45,9 +55,7 @@ function setupServer() {
         }catch(e){
             console.log(e)
             res.status(404).json(e)}
-
     })
-
 
     return app;
 }
