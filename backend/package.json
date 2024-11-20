@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test":  "clear && mocha --require esm test/*.js",
+    "test": "clear && mocha --require esm test/*.js",
     "start": "node ./index.js",
     "nodemon": "nodemon ./index.js",
     "migrate": "npx knex migrate:latest --knexfile ./knexfile.js",
@@ -22,7 +22,8 @@
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "knex": "^3.1.0",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "pretier": "^0.0.1"
   },
   "devDependencies": {
     "chai": "^4.5.0",
