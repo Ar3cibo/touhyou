@@ -4,6 +4,7 @@ const cors = require("cors");
 const axios = require("axios");
 const handlerVoteTitle = require("./handlers/vote_title");
 const handlerUserTitle = require("./handlers/user_title");
+const handlerOptions = require("./handlers/options");
 
 function setupServer() {
     const app = express();
@@ -38,7 +39,18 @@ function setupServer() {
         try {
             const params = req.body
             const [resData] = await handlerVoteTitle.new(db,params)
-            console.log("--post-votes--",resData)
+            res.status(201).json(resData)
+        }catch(e){
+            console.log(e)
+            res.status(404).json(e)}
+    })
+
+    //options///////////////////////////////////////
+    app.post('/api/options', async(req,res)=>{
+        console.log("--post-options--")
+        const params = req.body
+        try {
+            const [resData] = await handlerOptions.new(db,params)
             res.status(201).json(resData)
         }catch(e){
             console.log(e)

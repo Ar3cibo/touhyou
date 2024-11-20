@@ -9,6 +9,7 @@ exports.up = async function(knex) {
             .references("vote_title.id")
             .onDelete("CASCADE")
             .notNullable();
+        table.primary(["option_number", "vote_title_id"]);
         table.integer("option_number" ).notNullable();
         table.string("question").notNullable();
         table.integer("user_id")
