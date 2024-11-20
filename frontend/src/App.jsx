@@ -7,11 +7,17 @@ function App() {
 
     useEffect(() => {
         const fetchVotes = async () => {
-            const res = await axios.get('http://localhost:8080/api/movies');
+            const res = await axios.get('http://localhost:8080/api/votes');
             setVotes(res.data);
             setLoading(false);
         };
     }, []);
+
+    function optionList(votes) {
+        const votesComponents = votes.map((vote) => {
+            return <p>vote</p>;
+        });
+    }
 
     return <></>;
 }
