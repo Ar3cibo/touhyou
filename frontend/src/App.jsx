@@ -1,8 +1,14 @@
+// 依存関係のインストール
+import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+// コンポーネント
+import VotesList from './components/VotesList.jsx';
+
 function App() {
     const [votes, setVotes] = useState([]);
+    const [votesDetail, setVotesDetail] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const votes_test = [
@@ -29,23 +35,33 @@ function App() {
         },
     ];
 
+    function VotesDetailsWrapper() {
+        const { id } = useParams();
+    }
+
+    async function fetchVotesDetail() {
+        const res = await axios.get('/api/votes:id');
+        setVotesDetail(res.data);
+        setLoading(false);
+    }
+
+    async function fetchVotes() {
+        const res = await axios.get('/api/votes');
+        setVotes(res.data);
+        setLoading(false);
+    }
+
+    function optionList() {}
+
     useEffect(() => {
-        const fetchVotes = async () => {
-            const res = await axios.get('http://localhost:8080/api/votes');
-            setVotes(res.data);
-            setLoading(false);
-        };
+        // fetchVotes();
     }, []);
 
-    function optionList(votes) {
-        return votes.map((vote) => {
-            return <li>{vote.vote_title}</li>;
-        });
-    }
-    const votesComponents = optionList(votes_test);
-    const testList = <ol>{votesComponents}</ol>;
-
-    return <>{testList}</>;
+    return (
+        <>
+            <VotesList votes={votes_test} />
+        </>
+    );
 }
 
 export default App;
