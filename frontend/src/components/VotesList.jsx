@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {useState} from "react";
 import axios from "axios";
+import Result from "./Result.jsx";//テスト用。あとで消す
 
 export default function VotesList({ votes }) {
     const [inputVote,setInputVote]=useState("")
@@ -27,6 +28,9 @@ export default function VotesList({ votes }) {
             <input type="text" onChange={(e)=>{setInputVote(e.target.value)}}/>
                 <button onClick={()=>{addVotes()}}>質問を追加する</button>
             </section>
+            {/*/テスト用。あとで消す*/}
+            <div>----------------------------------------</div>
+            <Result />
         </>
     );
 }
