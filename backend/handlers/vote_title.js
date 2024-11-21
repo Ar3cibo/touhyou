@@ -9,61 +9,24 @@ module.exports = {
     },
 
     async find(knex, id) {
-        console.log(`---${table}--find--start--id:`,id);
-        return await knex.select(
-            'T.id',
-            'T.title',
-            'T.added_user_id',
-            'T.is_closed',
-            'T.updated',
-            'O.vote_title_id',
-            'O.option_number',
-            'O.question')
+        console.log(`---${table}--find--start--id:`, id);
+        return await knex.select('T.*','O.*',
+            // 'count' > 0?  'count' : 0 ) こっちなら数値。でも列名指定できない。一旦保留。
+        knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`))
             .from(`${table} as T`)
-            .where({'T.id':id})
+            .where({'T.id': id})
             .leftJoin('options as O', 'O.vote_title_id', 'T.id')
-            .leftJoin(knex.select('vote_title_id','answer',knex.raw('COUNT(*) as count'))
+            .leftJoin(knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
                 .from('user_title')
                 .where({'vote_title_id': id})
                 .groupBy('vote_title_id', 'answer')
-                .as('U'), function() {
-                this.on('U.vote_title_id', 'T.id')
-                    .andOn('U.answer', 'O.option_number');
+                .as('U'), 'U.answer', 'O.option_number')
+    },
 
-
-
-
-    }
-
-//     return await knex.select(
-//         'T.id',
-//         'T.title',
-//         'T.added_user_id',
-//         'T.is_closed',
-//         'T.updated',
-//         'O.vote_title_id',
-//         'O.option_number',
-//         'O.question',
-//         knex.raw('COUNT(*) as count'))
-//         .from(`${table} as T`)
-//         .where({'T.id':id})
-//         .leftJoin('options as O', 'O.vote_title_id', 'T.id')
-//         .leftJoin('user_title as U', function() {
-//             this.on('U.vote_title_id', 'T.id')
-//                 .andOn('U.answer', 'O.option_number');
-//         })
-//         .groupBy([
-//             'T.id',
-//             'T.title',
-//             'T.added_user_id',
-//             'T.is_closed',
-//             'T.updated',
-//             'O.vote_title_id',
-//             'O.option_number',
-//             'O.question',
-//         ]);
-//
-//
-// },
-
-};
+    async new(knex,params) {
+        console.log(`---${table}--new--start--:`);
+        return await knex(table)
+            .insert({title: params.title, added_user_id: params.added_user_id, is_closed:false,updated:new Date()})
+            .returning('*')
+    },
+}

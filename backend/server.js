@@ -4,6 +4,7 @@ const cors = require("cors");
 const axios = require("axios");
 const handlerVoteTitle = require("./handlers/vote_title");
 const handlerUserTitle = require("./handlers/user_title");
+const handlerOptions = require("./handlers/options");
 
 function setupServer() {
     const app = express();
@@ -11,16 +12,15 @@ function setupServer() {
     // app.use("/", express.static("./public"));
 
     //vote_title///////////////////////////////////////
-    app.get('/api/votes/:added_user_id', async(req,res)=>{
+    app.get('/api/votes/:id', async(req,res)=>{
         console.log("--get-votes--")
         try {
-            const id = req.params.added_user_id
+            const id = Number(req.params.id)
             const resData = await handlerVoteTitle.find(db, id)
             res.status(200).json(resData)
         }catch(e){
             console.log(e)
         res.status(404).json(e)}
-
     })
 
     app.get('/api/votes', async(req,res)=>{
@@ -32,7 +32,29 @@ function setupServer() {
         }catch(e){
             console.log(e)
             res.status(404).json(e)}
+    })
 
+    app.post('/api/votes', async(req,res)=>{
+        console.log("--post-votes--")
+        try {
+            const params = req.body
+            const [resData] = await handlerVoteTitle.new(db,params)
+            res.status(201).json(resData)
+        }catch(e){
+            console.log(e)
+            res.status(404).json(e)}
+    })
+
+    //options///////////////////////////////////////
+    app.post('/api/options', async(req,res)=>{
+        console.log("--post-options--")
+        const params = req.body
+        try {
+            const [resData] = await handlerOptions.new(db,params)
+            res.status(201).json(resData)
+        }catch(e){
+            console.log(e)
+            res.status(404).json(e)}
     })
 
     //user_title///////////////////////////////////////
@@ -45,9 +67,7 @@ function setupServer() {
         }catch(e){
             console.log(e)
             res.status(404).json(e)}
-
     })
-
 
     return app;
 }
