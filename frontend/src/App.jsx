@@ -60,12 +60,14 @@ function App() {
     // }, []);
 
     return (
-        <>
+        <><h1 className="text-7xl font-bold underline">
+            Hello world!
+        </h1>
             <Router>
                 <Routes>
                     <Route
                         path={'/'}
-                        element={<VotesList votes={votes_test} />}
+                        element={<VotesList votes={votes_test}/>}
                     />
                 </Routes>
             </Router>

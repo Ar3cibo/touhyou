@@ -25,6 +25,7 @@ export default function Result() {
 
                 <p>{opt.question}</p>
                 <p>投票数：{opt.count}</p>
+                <p style={{visibility:opt.adoptflg? 'visible' : 'hidden' }}>⭐️</p>
             </li>
         )
     });

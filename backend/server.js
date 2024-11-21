@@ -1,7 +1,6 @@
 const express = require("express");
 const db = require("./knex");
 const cors = require("cors");
-const axios = require("axios");
 const handlerVoteTitle = require("./handlers/vote_title");
 const handlerUserTitle = require("./handlers/user_title");
 const handlerOptions = require("./handlers/options");
