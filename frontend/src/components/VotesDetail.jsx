@@ -9,8 +9,8 @@ export default function VotesDetail({ votes }) {
     // 投票を送る
     async function postVotes() {
         try {
-            const addData = { user_id: 2, answer: selectedChoice };
-            const apiUrl = "http://localhost:8000/api/answer";
+            const addData = { user_id: 3, vote_title_id: 2, answer: selectedChoice };
+            const apiUrl = "/api/answer";
             const res = await axios.post(apiUrl, addData);
             console.log(res.data);
             return res.data;
