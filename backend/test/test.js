@@ -44,7 +44,7 @@ describe("起動確認__test.js", () => {
             it("should return 1st data id, option_number, count", async () => {
 
                 const url = apiURL + "/api/votes/";
-                const addData = {title: 'ラーメンは好き？', added_user_id: 2}
+                const addData = {title: '焼肉は好き？', added_user_id: 2}
                 const resData = await axios.post(url, addData)
                 const res = resData.data
                 expect(res.title).to.equal(addData.title);

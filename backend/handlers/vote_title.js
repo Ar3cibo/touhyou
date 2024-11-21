@@ -10,18 +10,31 @@ module.exports = {
 
     async find(knex, id) {
         console.log(`---${table}--find--start--id:`, id);
-        return await knex.select('T.*','O.*',
-            // 'count' > 0?  'count' : 0 ) こっちなら数値。でも列名指定できない。一旦保留。
-        knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`))
-            .from(`${table} as T`)
-            .where({'T.id': id})
-            .leftJoin('options as O', 'O.vote_title_id', 'T.id')
-            .leftJoin(knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
-                .from('user_title')
-                .where({'vote_title_id': id})
-                .groupBy('vote_title_id', 'answer')
-                .as('U'), 'U.answer', 'O.option_number')
+        const maxValue= await knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
+            .from('user_title')
+            .where({'vote_title_id': id})
+            .groupBy('vote_title_id', 'answer')
+            .orderBy('count',"desc")
+            .first()
+        console.log(maxValue)
+
+        return []
+        // return await knex.select('T.*','O.*',
+        // knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`),
+        //     knex.raw(`CASE WHEN count = 最大値 THEN true ELSE false END as adopt`)
+        //     )
+        //     .from(`${table} as T`)
+        //     .where({'T.id': id})
+        //     .leftJoin('options as O', 'O.vote_title_id', 'T.id')
+        //     .leftJoin(
+        //         knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
+        //         .from('user_title')
+        //         .where({'vote_title_id': id})
+        //         .groupBy('vote_title_id', 'answer')
+        //         .as('U'), 'U.answer', 'O.option_number')
+
     },
+    // 'count' > 0?  'count' : 0 ) こっちなら数値。でも列名指定できない。一旦保留。
 
     async new(knex,params) {
         console.log(`---${table}--new--start--:`);
@@ -30,3 +43,19 @@ module.exports = {
             .returning('*')
     },
 }
+
+
+
+// async find(knex, id) {
+//     console.log(`---${table}--find--start--id:`, id);
+//     return await knex.select('T.*','O.*',
+//         knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`))
+//         .from(`${table} as T`)
+//         .where({'T.id': id})
+//         .leftJoin('options as O', 'O.vote_title_id', 'T.id')
+//         .leftJoin(knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
+//             .from('user_title')
+//             .where({'vote_title_id': id})
+//             .groupBy('vote_title_id', 'answer')
+//             .as('U'), 'U.answer', 'O.option_number')
+// },

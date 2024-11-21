@@ -9,6 +9,7 @@ const handlerOptions = require("./handlers/options");
 function setupServer() {
     const app = express();
     app.use(express.json());
+    app.use(cors());
     // app.use("/", express.static("./public"));
 
     //vote_title///////////////////////////////////////
@@ -36,6 +37,7 @@ function setupServer() {
 
     app.post('/api/votes', async(req,res)=>{
         console.log("--post-votes--")
+
         try {
             const params = req.body
             const [resData] = await handlerVoteTitle.new(db,params)
