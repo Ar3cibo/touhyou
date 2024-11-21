@@ -1,3 +1,15 @@
+:root {--padding_left: 70px}
+
 #vote_input_area{
     height: 150px;
+    margin-bottom: 30px;
+
+}
+
+#vote_input_area_in{
+    padding-left: var(--padding_left);
+}
+
+#select_vote_area_in{
+    padding-left: var(--padding_left);
 }
