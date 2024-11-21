@@ -104,8 +104,8 @@ function App() {
             <Router>
                 <Routes>
                     <Route
-                        path={'/a'}
-                        element={<VotesList votes={votes_test} />}
+                        path={'/'}
+                        element={<VotesList votes={votes_test}/>}
                     />
                     <Route
                         path={'/'}
