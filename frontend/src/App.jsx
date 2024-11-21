@@ -10,6 +10,7 @@ import axios from 'axios';
 
 // コンポーネント
 import VotesList from './components/VotesList.jsx';
+import VotesDetail from './components/VotesDetail.jsx';
 
 function App() {
     const votes_test = [
@@ -35,6 +36,45 @@ function App() {
             updated: '2024 - 11 - 20',
         },
     ];
+
+    const votes_detail_sample = [
+        {
+            id: 1,
+            title: 'title1',
+            added_user_id: 1,
+            is_closed: true,
+            updated: '2024-10-31T16:01:01.000Z',
+            vote_title_id: 1,
+            option_number: 1,
+            question: 'question1-1',
+            user_id: 1,
+            count: '2',
+        },
+        {
+            id: 1,
+            title: 'title1',
+            added_user_id: 1,
+            is_closed: true,
+            updated: '2024-11-01T17:02:02.000Z',
+            vote_title_id: 1,
+            option_number: 2,
+            question: 'question1-2',
+            user_id: 1,
+            count: '1',
+        },
+        {
+            id: 1,
+            title: 'title1',
+            added_user_id: 1,
+            is_closed: true,
+            updated: '2024-11-02T18:03:03.000Z',
+            vote_title_id: 1,
+            option_number: 3,
+            question: 'question1-3',
+            user_id: 2,
+            count: '0',
+        },
+    ];
     // const [votes, setVotes] = useState([]);
     // const [votesDetail, setVotesDetail] = useState([]);
     // const [loading, setLoading] = useState(true);
@@ -57,15 +97,19 @@ function App() {
     //
     // useEffect(() => {
     //     // fetchVotes();
-    // }, []);
+    // }, []);f
 
     return (
         <>
             <Router>
                 <Routes>
                     <Route
-                        path={'/'}
+                        path={'/a'}
                         element={<VotesList votes={votes_test} />}
+                    />
+                    <Route
+                        path={'/'}
+                        element={<VotesDetail votes={votes_detail_sample} />}
                     />
                 </Routes>
             </Router>
