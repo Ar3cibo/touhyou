@@ -5,7 +5,7 @@ module.exports = {
 
     async new(knex,params) {
         console.log(`---${table}--new--start--`);
-        return await knex(table)
+        return knex(table)
             .insert({user_id: params.user_id, vote_title_id: params.vote_title_id,answer:params.answer})
             .returning('*')
     },
