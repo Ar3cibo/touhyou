@@ -5,7 +5,7 @@ module.exports = {
 
     async all(knex) {
         console.log(`---${table}--all--start--id:`);
-        return await knex(table).select("*").where({is_closed: false})
+        return knex(table).select("*").where({is_closed: false})
     },
 
     async find(knex, id) {
@@ -18,7 +18,7 @@ module.exports = {
             .first()
         maxValue = maxValue.count
 
-        return await knex.select('T.*','O.*',
+        return knex.select('T.*','O.*',
         knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`),
             knex.raw(`CASE WHEN count = ${maxValue} THEN true ELSE false END as adoptflg`)
             )
@@ -37,24 +37,9 @@ module.exports = {
 
     async new(knex,params) {
         console.log(`---${table}--new--start--:`);
-        return await knex(table)
+        return knex(table)
             .insert({title: params.title, added_user_id: params.added_user_id, is_closed:false,updated:new Date()})
             .returning('*')
     },
 }
 
-
-
-// async find(knex, id) {
-//     console.log(`---${table}--find--start--id:`, id);
-//     return await knex.select('T.*','O.*',
-//         knex.raw(`CASE WHEN count > 0 THEN count ELSE 0 END as count`))
-//         .from(`${table} as T`)
-//         .where({'T.id': id})
-//         .leftJoin('options as O', 'O.vote_title_id', 'T.id')
-//         .leftJoin(knex.select('vote_title_id', 'answer', knex.raw('COUNT(*) as count'))
-//             .from('user_title')
-//             .where({'vote_title_id': id})
-//             .groupBy('vote_title_id', 'answer')
-//             .as('U'), 'U.answer', 'O.option_number')
-// },
