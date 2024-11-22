@@ -9,7 +9,7 @@ module.exports = {
         newNum = newNum.max + 1
 
         console.log('max',newNum)
-        return await knex(table).insert({
+        return  knex(table).insert({
             user_id: params.user_id,
             vote_title_id: params.vote_title_id,
             option_number: newNum,

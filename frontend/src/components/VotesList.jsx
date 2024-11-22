@@ -6,11 +6,23 @@ import Result from "./Result.jsx"; //テスト用。あとで消す
 
 export default function VotesList({ votes }) {
   const [inputVote, setInputVote] = useState("");
+  const [res, setRes] = useState({ id: "", title: "", added_user_id: "" }); //⭐️テスト用。後で削除
+  const [all, setAll] = useState([]); //⭐️テスト用。後で削除
+
+  async function test() {
+    //⭐️テスト用。関数ごと後で削除
+    const apiUrl = "/api/votes";
+    const res = await axios.get(apiUrl);
+    setAll(res.data);
+    console.log(res.data);
+  }
 
   async function addVotes() {
     const addData = { title: inputVote, added_user_id: 1 };
     const apiUrl = "/api/votes";
     const res = await axios.post(apiUrl, addData);
+    setRes(res.data); //⭐️テスト用。後で削除
+    await test(); //⭐️テスト用。後で削除
     console.log(res.data);
   }
 
@@ -60,7 +72,14 @@ export default function VotesList({ votes }) {
               投票アプリだよ
             </p>
           </div>
-
+          {/*動作確認用セクション。後で削除⭐️*/}
+          <section id="kakunin">
+            <div>動作確認用</div>
+            <div>
+              id:{res.id}, userid:{res.added_user_id}, title:{res.title}
+            </div>
+            <div>質問件数：{all.length}</div>
+          </section>
           <section id="vote_input_area">
             <h2 className="text-lg sm:text-2xl text-gray-900 font-medium title-font mb-3 ">
               💫 新しい質問をつくる
