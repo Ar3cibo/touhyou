@@ -17,7 +17,7 @@ string hashed_password "ハッシュ後パスワード"
 vote_title {
 increments id PK "id"
 string title "タイトル"
-integer added_user_id FK "投稿者のユーザーID"
+integer user_id FK "投稿者のユーザーID"
 boolean is_closed "クローズ判定"
 timestamp updated "更新日時"
 }
