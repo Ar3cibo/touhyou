@@ -23,16 +23,16 @@ timestamp updated "更新日時"
 }
 
 options {
-vote_title_id id PK/FK "タイトルID"
-option_number id PK/FK "主キー"
+vote_title_id id PK "タイトルID"
+option_number id PK "主キー"
 string question "質問"
 integer user_id "投稿者ID"
 timestamp updated "更新日時"
 }
 
 user_title {
-integer user_id PK/FK "ユーザID 複合主キー"
-integer vote_title_id PK/FK "質問タイトルID 複合主キー"
+integer user_id PK "ユーザID 複合主キー"
+integer vote_title_id PK "質問タイトルID 複合主キー"
 integer answer "一番多かった投票オプションのID"
 }
 
