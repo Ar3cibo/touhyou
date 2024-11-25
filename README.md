@@ -38,7 +38,7 @@ integer answer "一番多かった投票オプションのID"
 
 user_info ||--o{ user_title : "1つのuser_infoは、0以上のuser_titleを持つ"
 user_info ||--o{ vote_title : "1つのuser_infoは、0以上のvote_titleを持つ"
-user_info ||--o{ option : "1つのuser_infoは、0以上のoptionsを持つ"
+user_info ||--o{ options : "1つのuser_infoは、0以上のoptionsを持つ"
 vote_title ||--o{ options : "1つのvote_titleは、0以上のoptionsを持つ"
 vote_title ||--o{ user_title : "1つのvote_titleは、0以上のuser_titleを持つ"
 options ||--o{ user_title : "1つのoptionsは、0以上のuser_titleを持つ"
