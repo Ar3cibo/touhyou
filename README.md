@@ -31,8 +31,8 @@ timestamp updated "更新日時"
 }
 
 user_title {
-integer user_id PK FK "ユーザID 複合主キー"
-integer vote_title_id PK FK "質問タイトルID 複合主キー"
+integer user_id PK "ユーザID 複合主キー"
+integer vote_title_id PK "質問タイトルID 複合主キー"
 integer option_number "ユーザが選択した回答のoption number"
 }
 
