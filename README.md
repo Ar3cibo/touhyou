@@ -36,6 +36,7 @@ integer vote_title_id PK "質問タイトルID 複合主キー"
 integer option_number "ユーザが選択した回答のoption number"
 }
 
+
 user_info ||--o{ user_title : "1つのuser_infoは、0以上のuser_titleを持つ"
 user_info ||--o{ vote_title : "1つのuser_infoは、0以上のvote_titleを持つ"
 user_info ||--o{ options : "1つのuser_infoは、0以上のoptionsを持つ"
