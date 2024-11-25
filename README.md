@@ -23,7 +23,7 @@ timestamp updated "更新日時"
 }
 
 options {
-vote_title_id id PK/FK "タイトルID"
+vote_title_id id PK_FK "タイトルID"
 option_number id PK "主キー"
 string question "質問"
 integer user_id "投稿者ID"
