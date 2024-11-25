@@ -14,33 +14,33 @@ string loginname "ログイン名"
 string hashed_password "ハッシュ後パスワード"
 }
 
-vote_title {
+vote_questions {
 increments id PK "id"
-string title "タイトル"
+string question "質問"
 integer user_id FK "投稿者のユーザーID"
 boolean is_closed "クローズ判定"
 timestamp updated "更新日時"
 }
 
-options {
-vote_title_id id PK "タイトルID"
-option_number id PK "主キー"
+vote_options {
+integer option_id PK "オプションID"
+integer question_id FK "質問ID"
 string question "質問"
 integer user_id "投稿者ID"
 timestamp updated "更新日時"
 }
 
-user_title {
-integer user_id PK "ユーザID 複合主キー"
-integer vote_title_id PK "質問タイトルID 複合主キー"
-integer option_number "ユーザが選択した回答のoption number"
+user_voting {
+integer user_id PK "ユーザID"
+integer question_id PK "質問タイトルID 複合主キー"
+integer option_id "ユーザが回答したオプションID"
 }
 
 
-user_info ||--o{ user_title : "1つのuser_infoは、0以上のuser_titleを持つ"
-user_info ||--o{ vote_title : "1つのuser_infoは、0以上のvote_titleを持つ"
-user_info ||--o{ options : "1つのuser_infoは、0以上のoptionsを持つ"
-vote_title ||--o{ options : "1つのvote_titleは、0以上のoptionsを持つ"
-vote_title ||--o{ user_title : "1つのvote_titleは、0以上のuser_titleを持つ"
-options ||--o{ user_title : "1つのoptionsは、0以上のuser_titleを持つ"
+user_info ||--o{ user_voting : "1つのuser_infoは、0以上のuser_votingを持つ"
+user_info ||--o{ vote_questions : "1つのuser_infoは、0以上のvote_questionsを持つ"
+user_info ||--o{ vote_options : "1つのuser_infoは、0以上のvote_optionsを持つ"
+vote_questions ||--o{ vote_options : "1つのvote_questionsは、0以上のvote_optionsを持つ"
+vote_questions ||--o{ user_voting : "1つのvote_questionsは、0以上のuser_votingを持つ"
+vote_options ||--o{ user_voting : "1つのvote_optionsは、0以上のuser_votingを持つ"
 ```
