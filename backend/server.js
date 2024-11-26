@@ -16,7 +16,7 @@ function setupServer() {
     app.use(express.static(__dirname+`/public`));
 
     app.get("/api/allVoteCards",getController.allVoteCards)
-    app.get("/api/findWithVoting",getController.findWithVoting)
+    app.get("/api/voteCards/:id",getController.findWithVoting)
     // app.get("/api/voteCard/:id",getController.getVoteCard)
     app.post("/api/saveNewQuestion",saveController.saveNewQuestion)
     app.post("/api/saveNewOption",saveController.saveNewOption)

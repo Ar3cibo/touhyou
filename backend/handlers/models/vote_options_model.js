@@ -35,7 +35,6 @@ module.exports = {
             // this.on(`${OPTIONS_TABLE}.question_id` ,'=', 'user_voting.question_id')
             this.on('vote_options.question_id' ,'=', 'user_voting.question_id')
                 .andOn('vote_options.option_id', '=', 'user_voting.option_id')
-
         }).select('vote_options.*',db.raw('COUNT(user_voting.user_id) AS total_votes'))
             .where({'vote_options.question_id':id})
             .groupBy('vote_options.question_id','vote_options.option_id','vote_options.option',' vote_options.user_id','vote_options.updated')

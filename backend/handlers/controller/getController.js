@@ -4,9 +4,8 @@ const optionsModel = require("../models/vote_options_model")
 module.exports = {
     async allVoteCards(req, res) {
         try {
-            // const limit = req.query.limit
             const questionData = await questionsModel.all()
-            const optionData = await optionsModel.findWithVoting()
+            const optionData = await optionsModel.allVoteCards()
             const result =questionData.map(el=>{
                 return{question_id:el.id,question:el.question,user_id:el.user_id,is_closed:el.is_closed,updated:el.updated,options:
                         optionData.filter(op=>op.question_id ===el.id).map(op=>{
@@ -16,9 +15,9 @@ module.exports = {
                                 count: op.total_votes
                             }})}
             })
-            // console.log("questionData",questionData)
-            // console.log("optionData",optionData)
-            // console.log("result",result)
+            console.log("questionData",questionData)
+            console.log("optionData",optionData)
+            console.log("result",result)
             if (result) {
                 res.status(200).json(result)
             } else {
@@ -31,7 +30,8 @@ module.exports = {
     },
     async findWithVoting(req, res) {
         try {
-            const id = req.query.id
+            const id = req.params.id
+            console.log("id:",id)
             const questionData = await questionsModel.find(id)
             const optionData = await optionsModel.findWithVoting(id)
             const result =questionData.map(el=>{
