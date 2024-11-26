@@ -1,36 +1,40 @@
 import {Box, Center, Card, CardHeader, CardBody, Heading, Flex, Spacer, ListItem, List, Button} from "@yamada-ui/react"
 import {useNavigate} from "react-router-dom";
+import {testVoteCard} from "../testData/testDataVoteCard.ts";
+import {useEffect, useState} from "react";
+import {IVoteCard} from "../globals";
+import {atomtest} from "globals";
 
 
 export function IndexPage() {
 
   //データ仮置き------------------------------------------------------------------------------------------
 
-  const questions = [
-    {id: 1, question: '好きなテーマパークは？',user_id: 1,is_closed:true,updated:'2024-11-01 01:01:01'},
-    {id: 2, question: '今一番いきたい場所は？',user_id: 1,is_closed:true,updated:'2024-11-02 01:01:01'},
-    {id: 3, question: '好きなお酒は？',user_id: 1,is_closed:true,updated:'2024-11-03 01:01:01'},
-    {id: 4, question: "好きな食べ物は？",user_id: 1,is_closed:true,updated:'2024-11-04 01:01:01'},
-    {id: 5, question: "住んでみたい国は？",user_id: 1,is_closed:true,updated:'2024-11-05 01:01:01'},
-  ]
-
-  const allOptions = [
-    {option_id: 1, question_id:1, option:'ディズニー',user_id:1,updated:'2024-11-01 01:01:01'},
-    {option_id: 1, question_id:2, option:'イタリア',user_id:1,updated:'2024-11-02 02:02:02'},
-    {option_id: 1, question_id:3, option:'ビール',user_id:2,updated:'2024-11-03 03:03:03'},
-    {option_id: 2, question_id:1, option:'ユニバ',user_id:2,updated:'2024-11-04 04:04:04'},
-    {option_id: 2, question_id:2, option:'北海道',user_id:3,updated:'2024-11-05 05:05:05'},
-    {option_id: 2, question_id:3, option:'ハイボール',user_id:3,updated:'2024-11-06 06:06:06'},
-  ]
-
-  const user_voting = [
-    {user_id: 1, question_id: 1,option_id:1},
-    {user_id: 2, question_id: 1,option_id:1},
-    {user_id: 3, question_id: 1,option_id:2},
-    {user_id: 1, question_id: 2,option_id:2},
-    {user_id: 2, question_id: 2,option_id:1},
-    {user_id: 3, question_id: 2,option_id:2},
-  ]
+  // const questions = [
+  //   {id: 1, question: '好きなテーマパークは？',user_id: 1,is_closed:true,updated:'2024-11-01 01:01:01'},
+  //   {id: 2, question: '今一番いきたい場所は？',user_id: 1,is_closed:true,updated:'2024-11-02 01:01:01'},
+  //   {id: 3, question: '好きなお酒は？',user_id: 1,is_closed:true,updated:'2024-11-03 01:01:01'},
+  //   {id: 4, question: "好きな食べ物は？",user_id: 1,is_closed:true,updated:'2024-11-04 01:01:01'},
+  //   {id: 5, question: "住んでみたい国は？",user_id: 1,is_closed:true,updated:'2024-11-05 01:01:01'},
+  // ]
+  //
+  // const allOptions = [
+  //   {option_id: 1, question_id:1, option:'ディズニー',user_id:1,updated:'2024-11-01 01:01:01'},
+  //   {option_id: 1, question_id:2, option:'イタリア',user_id:1,updated:'2024-11-02 02:02:02'},
+  //   {option_id: 1, question_id:3, option:'ビール',user_id:2,updated:'2024-11-03 03:03:03'},
+  //   {option_id: 2, question_id:1, option:'ユニバ',user_id:2,updated:'2024-11-04 04:04:04'},
+  //   {option_id: 2, question_id:2, option:'北海道',user_id:3,updated:'2024-11-05 05:05:05'},
+  //   {option_id: 2, question_id:3, option:'ハイボール',user_id:3,updated:'2024-11-06 06:06:06'},
+  // ]
+  //
+  // const user_voting = [
+  //   {user_id: 1, question_id: 1,option_id:1},
+  //   {user_id: 2, question_id: 1,option_id:1},
+  //   {user_id: 3, question_id: 1,option_id:2},
+  //   {user_id: 1, question_id: 2,option_id:2},
+  //   {user_id: 2, question_id: 2,option_id:1},
+  //   {user_id: 3, question_id: 2,option_id:2},
+  // ]
 
   //-----------------------------------------------------------------------------------------------------
 
@@ -40,19 +44,34 @@ export function IndexPage() {
     navigate('/new')
   }
 
-  const questionCards = questions.map(question => {
+  function handlerClickMoveToAnswer() {
+    navigate("/answer")
+  }
 
-    const options = allOptions.filter(option => option.question_id === question.id);
+  const [currentVoteCards, setCurrentVoteCards] = useState<IVoteCard[]>([]);
+
+  useEffect(() => {
+    const _voteCards:IVoteCard[] = [];
+
+    for (let i = 0; i < 6 ; i++) {
+      _voteCards.push(testVoteCard)
+    }
+
+    setCurrentVoteCards(_voteCards)
+
+  }, []);
+
+
+  const questionCards = currentVoteCards.map(card => {
+
+    const options = card.options;
     const viewOptions = options.map(option => {
-      const votes = user_voting.filter(vote => {
-        return question.id === vote.question_id && option.option_id === vote.option_id
-      }).length
 
       return (
           <Flex>
             <ListItem mr={'50px'}>{option.option}</ListItem>
             <Spacer/>
-            <ListItem>投票数：{votes}</ListItem>
+            <ListItem>投票数：{option.count}</ListItem>
           </Flex>
       )
     })
@@ -61,13 +80,13 @@ export function IndexPage() {
     return(
         <Card m={'12px'}>
           <CardHeader>
-            <Heading size="md">{question.question}</Heading>
+            <Heading size="md">{card.question}</Heading>
           </CardHeader>
           <CardBody ml={'12px'}>
             <List>
               {viewOptions}
             </List>
-            <Button ml={'auto'} width={'200px'}>投票する</Button>
+            <Button ml={'auto'} width={'200px'} onClick={() => handlerClickMoveToAnswer()}>投票する</Button>
           </CardBody>
         </Card>
     )
