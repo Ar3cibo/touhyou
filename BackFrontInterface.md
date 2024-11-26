@@ -41,7 +41,7 @@ GET
 
 ### url
 ```
-/api/getVoteCard/:id
+/api/voteCard/:id
 ```
 
 ### メソッド
@@ -62,14 +62,14 @@ GET
 }
 ```
 
-## 🔶 saveNewVoteTitle
+## 🔶 saveNewQuestion
 回答の選択肢をDBに追加する際、所属する投票の question_id が必要となる。
 
 そのため、DBに投票を追加するときには、まず saveNewVoteTitle を呼び出し、そのレスポンスの id を使って saveNewVoteOption を呼び出す。
 
 ### url
 ```
-/api/saveNewVoteTitle/
+/api/saveNewQuestion/
 ```
 
 ### メソッド
@@ -90,11 +90,11 @@ POST
 }
 ```
 
-## 🔶 saveNewVoteOption
+## 🔶 saveNewOption
 
 ### url
 ```
-/api/saveNewVoteOption/
+/api/saveNewOption/
 ```
 
 ### メソッド
@@ -105,35 +105,6 @@ POST
 {
   question_id: number;
   question: string;
-}
-```
-
-### レスポンス
-```
-{
-  question_id: number;
-}
-```
-
-## 🔶 updateVoteCard
-
-### url
-```
-/api/updateVoteCard/:id
-```
-
-### メソッド
-PUT
-
-### パラメーター
-```
-{
-  question_id: number;
-  question: string;
-  user_id: number;
-  is_closed: boolean;
-  updated: Date
-  options: IVoteOption[];
 }
 ```
 
@@ -148,7 +119,7 @@ PUT
 
 ### url
 ```
-/api/deleteVoteCard/:id
+/api/voteCard/:id
 ```
 
 ### メソッド
@@ -168,7 +139,7 @@ DELETE
 
 ### url
 ```
-/api/userVoting/:id
+/api/userVoting/
 ```
 
 ### メソッド
