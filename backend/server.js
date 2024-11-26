@@ -1,9 +1,9 @@
 const express = require("express");
 const db = require("./knex");
 const cors = require("cors");
-const handlerVoteTitle = require("./handlers/vote_title");
-const handlerUserTitle = require("./handlers/user_title");
-const handlerOptions = require("./handlers/options");
+const handlerVoteTitle = require("./old_handlers/vote_title");
+const handlerUserTitle = require("./old_handlers/user_title");
+const handlerOptions = require("./old_handlers/options");
 
 function setupServer() {
     const app = express();
