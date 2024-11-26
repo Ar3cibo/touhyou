@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 const getController=require("./handlers/controller/getController")
 const saveController=require("./handlers/controller/saveController")
-// const deleteController=require("./handlers/controller/deleteController")
+const deleteController=require("./handlers/controller/deleteController")
 
 router.get("/api/allVoteCards",getController.allVoteCards)
 router.get("/api/voteCards/:id",getController.findWithVoting)
@@ -61,12 +61,13 @@ function checkAuth(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
+        // res.redirect('/login');
         res.status(401).send('Unauthorized');
     }
 }
 
 // 認証されたユーザーのみアクセスできるルート
-router.get('/profile', checkAuth, (req, res) => {
+router.get('/new', checkAuth, (req, res) => {
     res.send(`Hello ${req.user.username}`);
 });
 //--- 要確認
