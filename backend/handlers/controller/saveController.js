@@ -37,10 +37,13 @@ module.exports = {
     //     }
     // }
 
+    // ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+    // save全体をtransactionとする表記
     // /api/saveNewQuestion
     async saveNewQuestion(req, res) {
         const saveData = req.body
-        console.log("🍏🍏🍏🍏" ,req  )
+        console.log("req----------",req)
+        console.log("🍏🍏🍏🍏" ,req  )//reqのみで取得しておりbodyに値が入っていない！
         try {
             const resData = await questionsModel.save(saveData)
             res.status(200).json(resData)
