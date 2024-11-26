@@ -18,17 +18,17 @@ GET
 {
   "voteCards": [
     {
-      id: number;
-      title: string;
-      added_user_id: number;
+      question_id: number;
+      question: string;
+      user_id: number;
       is_closed: boolean;
       updated: Date
       options: IVoteOption[];
     },
     {
-      id: number;
-      title: string;
-      added_user_id: number;
+      question_id: number;
+      question: string;
+      user_id: number;
       is_closed: boolean;
       updated: Date
       options: IVoteOption[];
@@ -53,9 +53,9 @@ GET
 ### レスポンス
 ```
 {
-  id: number;
-  title: string;
-  added_user_id: number;
+  question_id: number;
+  question: string;
+  user_id: number;
   is_closed: boolean;
   updated: Date
   options: IVoteOption[];
@@ -63,7 +63,7 @@ GET
 ```
 
 ## 🔶 saveNewVoteTitle
-回答の選択肢をDBに追加する際、所属する投票の vote_title_id が必要となる。
+回答の選択肢をDBに追加する際、所属する投票の question_id が必要となる。
 
 そのため、DBに投票を追加するときには、まず saveNewVoteTitle を呼び出し、そのレスポンスの id を使って saveNewVoteOption を呼び出す。
 
@@ -78,15 +78,15 @@ POST
 ### パラメーター
 ```
 {
-  title: string;
-  added_user_id: number;
+  question: string;
+  user_id: number;
 }
 ```
 
 ### レスポンス
 ```
 {
-  id: number;
+  question_id: number;
 }
 ```
 
@@ -103,19 +103,19 @@ POST
 ### パラメーター
 ```
 {
-  vote_title_id: number;
-  title: string;
+  question_id: number;
+  question: string;
 }
 ```
 
 ### レスポンス
 ```
 {
-  id: number;
+  question_id: number;
 }
 ```
 
-## updateVoteCard
+## 🔶 updateVoteCard
 
 ### url
 ```
@@ -128,9 +128,9 @@ PUT
 ### パラメーター
 ```
 {
-  id: number;
-  title: string;
-  added_user_id: number;
+  question_id: number;
+  question: string;
+  user_id: number;
   is_closed: boolean;
   updated: Date
   options: IVoteOption[];
@@ -140,7 +140,7 @@ PUT
 ### レスポンス
 ```
 {
-  id: number;
+  question_id: number;
 }
 ```
 
@@ -160,6 +160,33 @@ DELETE
 ### レスポンス
 ```
 {
-  id: number;
+  question_id: number;
+}
+```
+
+## 🔶 userVoting
+
+### url
+```
+/api/userVoting/:id
+```
+
+### メソッド
+POST
+
+### パラメーター
+```
+{
+  user_id: number;
+  question_id: number;
+  option_id: number;
+}
+```
+
+### レスポンス
+```
+{
+  question_id: number;
+  option_id: number;
 }
 ```
