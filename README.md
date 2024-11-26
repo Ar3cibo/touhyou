@@ -25,7 +25,7 @@ timestamp updated "更新日時"
 vote_options {
 integer option_id PK "オプションID"
 integer question_id FK "質問ID"
-string option "質問"
+string option "オプション(選択肢)"
 integer user_id "投稿者ID"
 timestamp updated "更新日時"
 }
