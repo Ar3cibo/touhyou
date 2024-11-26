@@ -1,15 +1,29 @@
 const express = require("express");
 const db = require("./knex");
 const cors = require("cors");
-const handlerVoteTitle = require("./handlers/vote_title");
-const handlerUserTitle = require("./handlers/user_title");
-const handlerOptions = require("./handlers/options");
+const handlerVoteTitle = require("./old_handlers/vote_title");
+const handlerUserTitle = require("./old_handlers/user_title");
+const handlerOptions = require("./old_handlers/options");
+
+const getController=require("./handlers/controller/getController")
+const saveController=require("./handlers/controller/saveController")
+const deleteController=require("./handlers/controller/deleteController")
 
 function setupServer() {
     const app = express();
     app.use(express.json());
     app.use(cors());
     app.use(express.static(__dirname+`/public`));
+
+    app.get("/api/allVoteCards",getController.allVoteCards)
+    app.get("/api/voteCards/:id",getController.findWithVoting)
+    // app.get("/api/voteCard/:id",getController.getVoteCard)
+    app.post("/api/saveNewQuestion",saveController.saveNewQuestion)
+    app.post("/api/saveNewOption",saveController.saveNewOption)
+    // app.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
+    app.post("/api/userVoting",saveController.userVoting)
+
+
 
     //vote_title///////////////////////////////////////
     app.get('/api/votes/:id', async(req,res)=>{
