@@ -1,4 +1,6 @@
 import {Box, Center, Card, CardHeader, CardBody, Heading, Flex, Spacer, ListItem, List, Button} from "@yamada-ui/react"
+import {useNavigate} from "react-router-dom";
+
 
 export function IndexPage() {
 
@@ -32,6 +34,12 @@ export function IndexPage() {
 
   //-----------------------------------------------------------------------------------------------------
 
+  const navigate = useNavigate();
+
+  function handlerClickMoveToNew() {
+    navigate('/new')
+  }
+
   const questionCards = questions.map(question => {
 
     const options = allOptions.filter(option => option.question_id === question.id);
@@ -50,13 +58,12 @@ export function IndexPage() {
     })
 
 
-
     return(
         <Card m={'12px'}>
           <CardHeader>
             <Heading size="md">{question.question}</Heading>
           </CardHeader>
-          <CardBody ml={'12sspx'}>
+          <CardBody ml={'12px'}>
             <List>
               {viewOptions}
             </List>
@@ -73,7 +80,7 @@ export function IndexPage() {
         <h1>Touhyou</h1>
 
         {/* 新規登録ボタン */}
-        <Box as={'button'} mt={'12px'} mb={'12px'} w={'100%'} h={'36px'} bg={'sky.500'} rounded={'6px'} color={'white'}>
+        <Box as={'button'} mt={'12px'} mb={'12px'} w={'100%'} h={'36px'} bg={'sky.500'} rounded={'6px'} color={'white'} onClick={() => handlerClickMoveToNew()}>
           <Center>
             新規登録
           </Center>
