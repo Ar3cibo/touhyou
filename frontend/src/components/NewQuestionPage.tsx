@@ -1,4 +1,4 @@
-import {Box, Input, Center, FormControl, Button, Flex, Heading} from "@yamada-ui/react"
+import {Box, Input, FormControl, Button, Flex, Heading, Container, Center} from "@yamada-ui/react"
 import { IoAdd } from "react-icons/io5";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -44,17 +44,15 @@ export function NewQuestionPage() {
   return (
       <>
         <Box p={'12px'} m={'12px'} rounded={'6px'} borderWidth={'1px'} borderColor={'black'} w={'960px'} ml={'auto'} mr={'auto'}>
-        <h1>NewQuestionPage</h1>
-          <Center>
+          <Container centerContent>
               <Heading as="h1" size="2xl" isTruncated>新しい質問</Heading>
-          </Center>
-        <Box m={'12px'}>
-          <FormControl label="新しい質問内容を入力してください">
-            <Input type="text" placeholder="質問を入力" value={newQuestion} onChange={(evt) => {setNewQuestion(evt.target.value)}}/>
-          </FormControl>
-        </Box>
-        <Box m={'12px'}>
-          <FormControl label="２つ以上の回答を設置してください(最大６個)" mt={'30px'}>
+              <Box m={'12px'} w={'100%'}>
+                <FormControl label="新しい質問内容を入力してください">
+                  <Input type="text" placeholder="質問を入力" value={newQuestion} onChange={(evt) => {setNewQuestion(evt.target.value)}}/>
+                </FormControl>
+              </Box>
+        <Box m={'12px'} w={'100%'}>
+          <FormControl label="２つ以上の回答を設置してください(最大６個)" >
               {aryAnswers.map((answer, index) => {
                   return(
                       <Flex key={index} gap="md" mt={'12px'}>
@@ -72,10 +70,11 @@ export function NewQuestionPage() {
             </Button>
           </Center>
         </Box>
-          <Center>
-            <Button variant="outline" colorScheme="blue" m={'12px'} width={'300px'} onClick={() => {handlerClickMoveToIndex()}}>リストに戻る</Button>
-            <Button colorScheme="blue" m={'12px'} width={'300px'}>質問登録</Button>
-          </Center>
+            <Flex>
+              <Button variant="outline" colorScheme="blue" m={'12px'} width={'300px'} onClick={() => {handlerClickMoveToIndex()}}>リストに戻る</Button>
+              <Button colorScheme="blue" m={'12px'} width={'300px'}>質問登録</Button>
+            </Flex>
+          </Container>
       </Box>
     </>
   )

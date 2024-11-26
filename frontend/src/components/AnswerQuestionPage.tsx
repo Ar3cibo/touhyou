@@ -28,16 +28,15 @@ export function AnswerQuestionPage() {
     return (
         <>
             <Box p={'12px'} m={'12px'} rounded={'6px'} borderWidth={'1px'} borderColor={'black'} w={'960px'} ml={'auto'} mr={'auto'}>
-                <h1>AnswerQuestion</h1>
                 <Container centerContent>
                         <Heading as="h1" size="2xl" isTruncated>回答</Heading>
                         <Box>
                             <Flex>
-                              <Text fontSize="2xl" isTruncated mr={'30px'}>質問</Text>
+                              <Text fontSize="2xl" isTruncated mr={'40px'}>質問</Text>
                                 <Text fontSize="2xl" isTruncated >{currentVoteCard?.question}</Text>
                             </Flex>
                             <Flex mt={'50px'}>
-                                <Text fontSize="2xl" isTruncated  mr={'30px'}>回答</Text>
+                                <Text fontSize="2xl" isTruncated  mr={'40px'}>回答</Text>
                                 <RadioGroup value={selectValue} onChange={(value) => handlerClickSelectOption(value)}>
                                   {currentVoteCard?.options.map(option => {
                                     return <Radio value={option.option} size="lg" mb={'12px'}>{option.option}</Radio>
