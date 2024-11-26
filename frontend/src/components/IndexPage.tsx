@@ -1,4 +1,4 @@
-import {Box, Center, Card, CardHeader, CardBody, Heading, Flex, Spacer, ListItem, List} from "@yamada-ui/react"
+import {Box, Center, Card, CardHeader, CardBody, Heading, Flex, Spacer, ListItem, List, Button} from "@yamada-ui/react"
 
 export function IndexPage() {
 
@@ -56,10 +56,11 @@ export function IndexPage() {
           <CardHeader>
             <Heading size="md">{question.question}</Heading>
           </CardHeader>
-          <CardBody>
+          <CardBody ml={'12sspx'}>
             <List>
               {viewOptions}
             </List>
+            <Button ml={'auto'} width={'200px'}>投票する</Button>
           </CardBody>
         </Card>
     )
