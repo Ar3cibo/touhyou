@@ -14,8 +14,8 @@ module.exports = {
     },
 
 //id 指定（getVoteCard）
-    async find(id){
-        const data = await db(OPTIONS_TABLE).where({id})
+    async find(question_id){
+        const data = await db(OPTIONS_TABLE).where({question_id})
         return data
     },
 
@@ -50,8 +50,8 @@ module.exports = {
     },
 
 //delete  questionに紐づくoptionを全て消す
-    async delete(data){
-        await db.table(OPTIONS_TABLE).where({id: data.question_id}).del()
-        return {question_id : data.question_id}
+    async delete(questionId){
+        await db.table(OPTIONS_TABLE).where({question_id: questionId}).del()
+        return {question_id: questionId}
     }
 }

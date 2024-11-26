@@ -20,7 +20,7 @@ function setupServer() {
     // app.get("/api/voteCard/:id",getController.getVoteCard)
     app.post("/api/saveNewQuestion",saveController.saveNewQuestion)
     app.post("/api/saveNewOption",saveController.saveNewOption)
-    // app.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
+    app.delete("/api/voteCards/:id",deleteController.deleteVoteCard)
     app.post("/api/userVoting",saveController.userVoting)
 
 
