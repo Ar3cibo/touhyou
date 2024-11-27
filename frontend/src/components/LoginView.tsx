@@ -7,7 +7,9 @@ export default function LoginView() {
     const [errorMessage ,setErrorMessage]=useState('')
     const navigate = useNavigate();
 
-    const server_url ="http://localhost:8080"
+    const URL = process.env.VITE_URL;
+
+    const server_url = URL
     const submit =async(event: { preventDefault: () => void })=>{
         try{
             setErrorMessage('')
