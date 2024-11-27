@@ -6,10 +6,10 @@ module.exports = {
 
     // /api/saveNewQuestion
     async saveNewQuestion(req, res) {
-        console.log("🍏🍏🍏🍏req----------" ,req  )//reqのみで取得しておりbodyに値が入っていない！
-        console.log("🍏🍏🍏🍏req.body----------" ,req.body  )//reqのみで取得しておりbodyに値が入っていない！
         const reqData = req.body
+        const maxQuestionId = await questionsModel.findMaxQuestionId()
         const saveData = {
+            id: maxQuestionId + 1,
             question: reqData.question,
             user_id: reqData.user_id,
             is_closed: false,
@@ -27,6 +27,7 @@ module.exports = {
     // /api/saveNewOption
     async saveNewOption(req, res) {
         const reqData = req.body;
+        console.log("req.body-----", reqData)//正常に取れている
         const maxOptionId =optionsModel.findMaxOptionId(reqData.question_id)
         const saveData = {
             option_id: maxOptionId + 1,

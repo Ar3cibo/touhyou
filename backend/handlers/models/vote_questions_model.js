@@ -18,12 +18,19 @@ module.exports={
         const data = await db(QUESTION_TABLE).where({id})
         return data
     },
+    
+//question_idの最大値を取得
+//id列の自動インクリメント挿入機能がなぜか効かないため
+async findMaxQuestionId(){
+    const maxId = await db(QUESTION_TABLE).max("id")
+    return maxId[0].max;
+},
+
 
 //save
     async save(data){
         await db.table(QUESTION_TABLE).insert(data);
         const response = await db(QUESTION_TABLE).orderBy("id", "desc").first();
-        // console.log("response",response)
         return {question_id: response.id}
     },
 

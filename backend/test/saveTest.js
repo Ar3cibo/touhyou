@@ -35,10 +35,8 @@ describe ("POST", () => {
     });
 
     it("POST  /api/saveNewQuestion  model test", async () => {
-        const data = {question: '好きなテーマパークは？',user_id: 2,is_closed:false,updated:'2024-11-026 01:01:01'}
-        const response = await questionsModel.save(data)
-        console.log("🍌response",response)
-        // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
+        const data = {id: 6, question: '好きなテーマパークは？', user_id: 2, is_closed: false, updated: '2024-11-026 01:01:01'}
+        const response = await questionsModel.save(data);
         expect(response).to.eql({ question_id: 6 });
     })
 
@@ -52,22 +50,18 @@ describe ("POST", () => {
         })
         expect(response.status).to.equal(200 );
         const allQuestionsAfter = await questionsModel.all()
-        console.log("questions--", allQuestionsAfter)
         expect(allQuestionsAfter.length).to.equal(allQuestionsBefore.length + 1)
     })
 
-    it("POST  /api/saveNewOption", async () => {
+    it("POST  /api/saveNewOption  model test", async () => {
         const data = {option_id : 1, question_id : 6, option : 'TEST', user_id : 2, updated : '2024-11-01 01:01:02'};
-
         const response = await optionsModel.save(data)
-        console.log("🍌response",response)
         expect(response).to.eql({ question_id: 6 });
     })
 
     it("POST  /api/userVoting", async () => {
         const data = {user_id: 1, question_id: 6,option_id: 1}
         const response = await userVotingModel.save(data)
-        console.log("🍌response",response)
         expect(response).to.eql({ question_id: 6, option_id: 1});
     })
 

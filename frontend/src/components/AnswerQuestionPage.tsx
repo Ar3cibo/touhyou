@@ -32,7 +32,8 @@ export function AnswerQuestionPage() {
     };
 
     const res = await fetch(url, params);
-    console.log("res:",res);
+    const body = await res.json();
+    console.log("res:",body);
     navigate('/')
   }
 
