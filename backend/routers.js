@@ -101,13 +101,4 @@ router.get("/logout", (req, res) => {
 });
 
 
-router.get('/session-test', (req, res) => {
-    if (req.isAuthenticated()) {
-        // セッションがある場合、そのセッション情報を返す
-        res.status(200).json({ sessionData: req.session });
-    } else {
-        res.status(401).json({ message: 'Unauthorized' });
-    }
-});
-
 module.exports=router
