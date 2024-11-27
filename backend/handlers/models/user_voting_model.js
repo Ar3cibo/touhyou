@@ -8,7 +8,7 @@ const USER_VOTING_TABLE = "user_voting"
 module.exports = {
     USER_VOTING_TABLE,
 //find
-    async find(id){
+    async find(question_id){
         const data = await db(USER_VOTING_TABLE).where({question_id})
         return data
     },
@@ -23,9 +23,9 @@ module.exports = {
 
 
 //delete
-    async deleteData(data){
-        await db.table(USER_VOTING_TABLE).where({question_id: data.question_id}).del()
-        return {question_id: data.question_id}
+    async delete(questionId){
+        await db.table(USER_VOTING_TABLE).where({question_id: questionId}).del()
+        return {question_id: questionId}
     }
 
 }

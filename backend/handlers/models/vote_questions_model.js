@@ -29,8 +29,8 @@ module.exports={
 
 
 //delete
-    async delete(data){
-        await db.table(QUESTION_TABLE).where({id: data.question_id}).del()
-        return data.question_id
+    async delete(questionId){
+        await db.table(QUESTION_TABLE).where({id: questionId}).del()
+        return {question_id: questionId};
     }
 }

@@ -8,10 +8,12 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { setupServer } = require("../server.js");
 const app =setupServer()
+const express = require("express")
+app.use(express.json())
 const questionsModel = require("../handlers/models/vote_questions_model")
 const optionsModel = require("../handlers/models/vote_options_model")
 const userVotingModel = require("../handlers/models/user_voting_model");
-// const saveController=requre("../handlers/controller/saveController")
+const saveController = require("../handlers/controller/saveController")
 // const {expect} = require("chai");
 const expect= chai.expect;
 chai.use(chaiHttp);
@@ -38,6 +40,19 @@ describe ("POST", () => {
         console.log("🍌response",response)
         // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.eql({ question_id: 6 });
+    })
+
+    it("POST  /api/saveNewQuestion", async () => {
+        const data = {id: 7, question: '好きな乗り物は？',user_id: 2,is_closed:false,updated:'2024-11-027 01:01:01'}
+        const response = await fetch("http://localhost:8080/api/saveNewQuestion",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        expect(response.status).to.equal(200 );
+        const allQuestions = await questionsModel.all()
+        console.log("questions--", allQuestions)
+        expect(allQuestions.length).to.equal(7)
     })
 
     it("POST  /api/saveNewOption", async () => {
