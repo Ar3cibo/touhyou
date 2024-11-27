@@ -59,6 +59,16 @@ describe ("POST", () => {
         expect(response).to.eql({ question_id: 6 });
     })
 
+    it("POST  /api/saveNewOption  controller test", async () => {
+        const data = {question_id : 6, option: 'TEST', user_id: 2};
+        const response = await fetch("http://localhost:8080/api/saveNewOption",{
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+        expect(response.status).to.equal(200 );
+    })
+
     it("POST  /api/userVoting", async () => {
         const data = {user_id: 1, question_id: 6,option_id: 1}
         const response = await userVotingModel.save(data)

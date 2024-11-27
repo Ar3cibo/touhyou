@@ -43,13 +43,15 @@ export function NewQuestionPage() {
 
   async function handlerClickQuestionAdd() {
 
+    const URL = process.env.VITE_URL;
+
     //質問追加
     const newQuestionData ={
       question: newQuestion,
       user_id: 5,
     }
 
-    const url = 'http://localhost:8080/api/saveNewQuestion/'
+    const url = URL + '/api/saveNewQuestion/'
     const params = {method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newQuestionData)
@@ -67,7 +69,7 @@ export function NewQuestionPage() {
         option: aryAnswers[i],
         user_id: 5,
       }
-      const url = 'http://localhost:8080/api/saveNewOption/'
+      const url = URL + '/api/saveNewOption/'
       const params = {method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(newOptionData)

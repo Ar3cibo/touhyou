@@ -28,7 +28,8 @@ module.exports = {
     async saveNewOption(req, res) {
         const reqData = req.body;
         console.log("req.body-----", reqData)//正常に取れている
-        const maxOptionId =optionsModel.findMaxOptionId(reqData.question_id)
+        const maxOptionId = await optionsModel.findMaxOptionId(reqData.question_id)
+        console.log("maxOptionId-----", maxOptionId)
         const saveData = {
             option_id: maxOptionId + 1,
             question_id: reqData.question_id,
@@ -37,7 +38,8 @@ module.exports = {
             updated: new Date()
         };
         try {
-            return await optionsModel.save(saveData)
+            await optionsModel.save(saveData)
+            res.status(200).json({question_id: reqData.question_id})
         } catch (error) {
             console.log("Internal Server Error(saveNewOptions)", error)
             res.status(500).json({error: "Internal Server Error"});

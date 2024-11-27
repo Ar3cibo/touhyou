@@ -6,6 +6,8 @@ import {IVoteCard} from "../globals";
 
 export function AnswerQuestionPage() {
 
+    const URL = process.env.VITE_URL;
+
   const navigate = useNavigate();
   const {question_id} = useParams();
 
@@ -18,7 +20,8 @@ export function AnswerQuestionPage() {
   }
 
   async function handlerClickSelectAnswer() {
-    const url = "http://localhost:8080/api/userVoting/";
+
+    const url = URL + "/api/userVoting/";
     const params = {
       method : "POST",
       headers: {
@@ -43,7 +46,7 @@ export function AnswerQuestionPage() {
 
   useEffect(() => {
     (async () => {
-      const resultVoteCard = await fetch('http://localhost:8080/api/voteCards/' + question_id);
+      const resultVoteCard = await fetch(URL + '/api/voteCards/' + question_id);
       const voteCard = await resultVoteCard.json();
       setCurrentVoteCard(voteCard[0] as IVoteCard);
     })()

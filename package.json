@@ -3,8 +3,8 @@
     "migrate-latest": "npx knex migrate:latest --knexfile backend/knexfile.js",
     "migrate-down": "npx knex migrate:down --knexfile backend/knexfile.js",
     "seed-data": "npx knex seed:run --knexfile backend/knexfile.js",
-    "build": "npm install",
-    "start": "node backend/index.js"
+    "build": "npm run build --prefix frontend && npm run build --prefix backend",
+    "start": "npm run start --prefix backend"
   },
   "author": "",
   "license": "ISC",
