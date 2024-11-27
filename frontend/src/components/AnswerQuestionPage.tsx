@@ -17,6 +17,25 @@ export function AnswerQuestionPage() {
     navigate('/')
   }
 
+  async function handlerClickSelectAnswer() {
+    const url = "http://localhost:8080/api/userVoting/";
+    const params = {
+      method : "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body : JSON.stringify({
+        user_id: 5,
+        question_id: Number(question_id),
+        option_id: Number(selectValue),
+      })
+    };
+
+    const res = await fetch(url, params);
+    console.log("res:",res);
+    navigate('/')
+  }
+
   const [currentVoteCard, setCurrentVoteCard] = useState<IVoteCard>();
 
   const [selectValue, setSelectValue] = useState("");
@@ -44,14 +63,14 @@ export function AnswerQuestionPage() {
                                 <Text fontSize="2xl" isTruncated  mr={'40px'}>回答</Text>
                                 <RadioGroup value={selectValue} onChange={(value) => handlerClickSelectOption(value)}>
                                   {currentVoteCard?.options.map((option,index) => {
-                                    return <Radio key={index} value={option.option} size="lg" mb={'12px'}>{option.option}</Radio>
+                                    return <Radio key={index} value={option.option_id.toString()} size="lg" mb={'12px'}>{option.option}</Radio>
                                   })}
                                 </RadioGroup>
                             </Flex>
                         </Box>
                   <Flex>
                     <Button variant="outline" colorScheme="blue" m={'12px'} width={'300px'} onClick={() => {handlerClickMoveToIndex()}}>リストに戻る</Button>
-                    <Button colorScheme={'blue'} m={'12px'} width={'300px'} >回答</Button>
+                    <Button colorScheme={'blue'} m={'12px'} width={'300px'} onClick={() => handlerClickSelectAnswer()}>回答</Button>
                   </Flex>
                 </Container>
 
