@@ -49,9 +49,4 @@ module.exports = {
         return {question_id: response.question_id}
     },
 
-//delete  questionに紐づくoptionを全て消す
-    async delete(questionId){
-        await db.table(OPTIONS_TABLE).where({question_id: questionId}).del()
-        return {question_id: questionId}
-    }
 }

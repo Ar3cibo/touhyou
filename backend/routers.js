@@ -14,7 +14,7 @@ router.get("/api/voteCards/:id",getController.findWithVoting)
 // router.get("/api/voteCard/:id",getController.getVoteCard)
 router.post("/api/saveNewQuestion",saveController.saveNewQuestion)
 router.post("/api/saveNewOption",saveController.saveNewOption)
-// router.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
+router.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
 router.post("/api/userVoting",saveController.userVoting)
 
 //認証用

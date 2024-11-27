@@ -18,21 +18,27 @@ module.exports = {
             try {
                 //.transacting(trx)があると一つ目のテーブルまでしか削除できない
                 // await userVotingModel.delete(deleteId).transacting(trx)
-                await userVotingModel.delete(deleteId)
-                const deletedUserVoting = await userVotingModel.find(deleteId)
-                console.log("消えたはずのuserVotingのデータ：", deletedUserVoting)
-                await optionsModel.delete(deleteId)
-                const deletedOptions = await optionsModel.find(deleteId)
-                console.log("消えたはずのvote_optionsのデータ：", deletedOptions)
-                await questionsModel.delete((deleteId))
-                const deletedQuestions = await questionsModel.find(deleteId)
-                console.log("消えたはずのvote_questionsのデータ：", deletedQuestions)
+                // await userVotingModel.delete(deleteId)
+                // const deletedUserVoting = await userVotingModel.find(deleteId).transacting(trx)
+                // console.log("消えたはずのuserVotingのデータ：", deletedUserVoting)
+                // await optionsModel.delete(deleteId).transacting(trx)
+                // const deletedOptions = await optionsModel.find(deleteId).transacting(trx)
+                // console.log("消えたはずのvote_optionsのデータ：", deletedOptions)
+                // await questionsModel.delete((deleteId)).transacting(trx)
+                // const deletedQuestions = await questionsModel.find(deleteId).transacting(trx)
+                // console.log("消えたはずのvote_questionsのデータ：", deletedQuestions)
+
+                await db.table("user_voting").where({question_id: deleteId}).del().transacting(trx)
+                await db.table("vote_options").where({question_id: deleteId}).del().transacting(trx)
+                await db.table("vote_questions").where({id: deleteId}).del().transacting(trx)
+
                 await trx.commit();
-                res.status(200).json({completed: "Deleted all ordered data."})
+                res.status(200).json({question_id: deleteId})
             }
             catch (error) {
+                console.log("Is completed transaction...before:", trx.isCompleted())
                 await trx.rollback()
-                console.log("Is completed transaction...", trx.isCompleted)
+                console.log("Is completed transaction...after:", trx.isCompleted())
                 res.status(500).json({error: "Could not delete data."});
             }
         })
