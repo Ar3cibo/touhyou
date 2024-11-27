@@ -1,12 +1,13 @@
 import {Box, Button, Flex, Heading, Radio, RadioGroup, Text, Container} from "@yamada-ui/react";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {testVoteCard} from "../testData/testDataVoteCard.ts";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {IVoteCard} from "../globals";
 
 export function AnswerQuestionPage() {
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const {question_id} = useParams();
 
   function handlerClickSelectOption(value:string) {
     setSelectValue(value)
@@ -16,12 +17,35 @@ export function AnswerQuestionPage() {
     navigate('/')
   }
 
+  async function handlerClickSelectAnswer() {
+    const url = "http://localhost:8080/api/userVoting/";
+    const params = {
+      method : "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body : JSON.stringify({
+        user_id: 5,
+        question_id: Number(question_id),
+        option_id: Number(selectValue),
+      })
+    };
+
+    const res = await fetch(url, params);
+    console.log("res:",res);
+    navigate('/')
+  }
+
   const [currentVoteCard, setCurrentVoteCard] = useState<IVoteCard>();
 
   const [selectValue, setSelectValue] = useState("");
 
   useEffect(() => {
-    setCurrentVoteCard(testVoteCard);
+    (async () => {
+      const resultVoteCard = await fetch('http://localhost:8080/api/voteCards/' + question_id);
+      const voteCard = await resultVoteCard.json();
+      setCurrentVoteCard(voteCard[0] as IVoteCard);
+    })()
   }, []);
 
 
@@ -38,15 +62,15 @@ export function AnswerQuestionPage() {
                             <Flex mt={'50px'}>
                                 <Text fontSize="2xl" isTruncated  mr={'40px'}>回答</Text>
                                 <RadioGroup value={selectValue} onChange={(value) => handlerClickSelectOption(value)}>
-                                  {currentVoteCard?.options.map(option => {
-                                    return <Radio value={option.option} size="lg" mb={'12px'}>{option.option}</Radio>
+                                  {currentVoteCard?.options.map((option,index) => {
+                                    return <Radio key={index} value={option.option_id.toString()} size="lg" mb={'12px'}>{option.option}</Radio>
                                   })}
                                 </RadioGroup>
                             </Flex>
                         </Box>
                   <Flex>
                     <Button variant="outline" colorScheme="blue" m={'12px'} width={'300px'} onClick={() => {handlerClickMoveToIndex()}}>リストに戻る</Button>
-                    <Button colorScheme={'blue'} m={'12px'} width={'300px'} >回答</Button>
+                    <Button colorScheme={'blue'} m={'12px'} width={'300px'} onClick={() => handlerClickSelectAnswer()}>回答</Button>
                   </Flex>
                 </Container>
 
