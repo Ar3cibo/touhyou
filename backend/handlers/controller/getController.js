@@ -15,9 +15,9 @@ module.exports = {
                                 count: op.total_votes
                             }})}
             })
-            console.log("questionData",questionData)
-            console.log("optionData",optionData)
-            console.log("result",result)
+            // console.log("questionData",questionData)
+            // console.log("optionData",optionData)
+            // console.log("result",result)
             if (result) {
                 res.status(200).json(result)
             } else {

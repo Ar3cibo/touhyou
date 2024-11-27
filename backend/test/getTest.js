@@ -32,14 +32,12 @@ describe ("GET", () => {
     it("GET  questions all", async () => {
         const response = await questionsModel.all(100)
         console.log("🍌questions all",response)
-        // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.be.an.instanceof(Array);
     })
 
     it("GET  questions find", async () => {
         const response = await questionsModel.find(1)
         console.log("🍌questions find",response)
-        // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.be.an.instanceof(Array);
     })
 
@@ -47,16 +45,21 @@ describe ("GET", () => {
     it("GET  options allVoteCards", async () => {
         const response = await optionsModel.allVoteCards()
         console.log("🍌options allVoteCards",response)
-        // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.be.an.instanceof(Array);
     })
 
     it("GET  options findWithVoting", async () => {
         const response = await optionsModel.findWithVoting(1)
         console.log("🍌options findWithVoting",response)
-        // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.be.an.instanceof(Array);
     })
+
+    it("GET  options findMaxOptionId", async () => {
+        const response = await optionsModel.findMaxOptionId(1)
+        console.log("🍌options findMaxOptionId",response)
+        expect(response).to.equal(4);
+    })
+
 })
 
 

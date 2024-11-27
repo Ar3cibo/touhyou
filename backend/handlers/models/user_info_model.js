@@ -23,6 +23,7 @@ module.exports = {
     },
     async find(username) {
         try {
+            console.log("🍇find userName",username)
             const [result] = await db(USER_TABLE).where({ username });
             return result;
         } catch (error) {
@@ -33,8 +34,6 @@ module.exports = {
     async getMaxId(){
         try {
             const result = await db(USER_TABLE).max('id as max_id').first();
-            // result.max_id = undefined;
-            console.log("result:",result)
             return result.max_id || 0;
         } catch (error) {
             console.error('Error get max_id:', error);

@@ -9,8 +9,14 @@ module.exports = {
 //all（allVoteCards）
     async all(limit){
         const data = await db(OPTIONS_TABLE).limit(limit)
-        console.log("data",data)
+        // console.log("data",data)
         return data
+    },
+
+//option_idの最大値を取得
+    async findMaxOptionId(question_id){
+        const maxId = await db(OPTIONS_TABLE).where({question_id}).max("option_id")
+        return maxId[0].max;
     },
 
 //id 指定（getVoteCard）
@@ -49,9 +55,4 @@ module.exports = {
         return {question_id: response.question_id}
     },
 
-//delete  questionに紐づくoptionを全て消す
-    async delete(questionId){
-        await db.table(OPTIONS_TABLE).where({question_id: questionId}).del()
-        return {question_id: questionId}
-    }
 }

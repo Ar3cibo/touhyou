@@ -7,6 +7,7 @@
     "savetest": "clear && mocha test/saveTest.js",
     "gettest": "clear && mocha test/getTest.js",
     "deletetest": "clear && mocha test/deleteTest.js",
+    "passporttest": "clear && mocha test/passportTest.js",
     "start": "node ./index.js",
     "nodemon": "nodemon ./index.js",
     "migrate": "npx knex migrate:latest --knexfile ./knexfile.js",

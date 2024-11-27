@@ -19,7 +19,7 @@ function authentication(app){
 // passport session
     app.use(passport.initialize());
     app.use(passport.session());
-    // app.use(flash());
+
 
 // LocalStrategy(ユーザー名・パスワードでの認証)の設定
 passport.use(
@@ -48,10 +48,10 @@ passport.serializeUser((user, done) => {
     done(null, user)
 });
 // sessionからusernameを取り出して検証するための記述
-passport.deserializeUser(async(user_name, done) => {
+passport.deserializeUser(async(username, done) => {
     try{
-        console.log("⭐️passport.serializeUser")
-        const user = await userModel.find(user_name);
+        console.log("⭐️passport.deserializeUser",username)
+        const user = await userModel.find(username);
         done(null, user);
     }catch (error) {
         done(error, null);

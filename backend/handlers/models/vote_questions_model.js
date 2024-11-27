@@ -8,9 +8,9 @@ const db=require("knex")(config)
 const QUESTION_TABLE ="vote_questions"
 module.exports={
     QUESTION_TABLE,
-    async all(limit){
+    async all(limit=100){
         const data = await db(QUESTION_TABLE).limit(limit)
-        console.log("data",data)
+        // console.log("data",data)
         return data
     },
 //id 指定
@@ -23,14 +23,8 @@ module.exports={
     async save(data){
         await db.table(QUESTION_TABLE).insert(data);
         const response = await db(QUESTION_TABLE).orderBy("id", "desc").first();
-        console.log("response",response)
+        // console.log("response",response)
         return {question_id: response.id}
     },
 
-
-//delete
-    async delete(questionId){
-        await db.table(QUESTION_TABLE).where({id: questionId}).del()
-        return {question_id: questionId};
-    }
 }

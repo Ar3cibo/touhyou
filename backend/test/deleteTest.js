@@ -32,7 +32,7 @@ describe ("DELETE", () => {
     });
 
     it("DELETE : Should delete ordered userVoting data.", async () => {
-        await fetch("http://localhost:8080/api/voteCards/1",{
+        await fetch("http://localhost:8080/api/voteCard/1",{
             method: "DELETE"
         })
         const deletedUserVoting = await userVotingModel.find(1)

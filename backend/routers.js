@@ -14,13 +14,13 @@ router.get("/api/voteCards/:id",getController.findWithVoting)
 // router.get("/api/voteCard/:id",getController.getVoteCard)
 router.post("/api/saveNewQuestion",saveController.saveNewQuestion)
 router.post("/api/saveNewOption",saveController.saveNewOption)
-// router.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
+router.delete("/api/voteCard/:id",deleteController.deleteVoteCard)
 router.post("/api/userVoting",saveController.userVoting)
 
 //認証用
 
 router.use((req, res, next) => {
-    console.log("Session Data:", req.session); // セッション情報を表示
+    // console.log("Session Data:", req.session); // セッション情報を表示
     next(); // 次のミドルウェアに処理を渡す
 });
 
@@ -46,7 +46,6 @@ router.post("/login", (req, res) => {
     // 最初に設定したLocalStrategy(ユーザー名とパスワードでの認証)を使ってログイン
     passport.authenticate("local", (err, user) => {
         if (!user) return res.status(401).json({ message: "ログイン失敗！" });
-
         // sessionにログイン情報を格納
         req.logIn(user, () => {
             // res.redirect('/')
@@ -100,5 +99,6 @@ router.get("/logout", (req, res) => {
         res.json({ message: "ログアウト成功" });
     });
 });
+
 
 module.exports=router

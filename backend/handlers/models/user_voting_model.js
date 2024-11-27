@@ -21,12 +21,5 @@ module.exports = {
         return {question_id: response.question_id, option_id: response.option_id}
     },
 
-
-//delete
-    async delete(questionId){
-        await db.table(USER_VOTING_TABLE).where({question_id: questionId}).del()
-        return {question_id: questionId}
-    }
-
 }
 

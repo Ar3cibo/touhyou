@@ -34,25 +34,26 @@ describe ("POST", () => {
         request.close();
     });
 
-    it("POST  /api/saveNewQuestion", async () => {
-        const data = {id: 6, question: '好きなテーマパークは？',user_id: 2,is_closed:false,updated:'2024-11-026 01:01:01'}
+    it("POST  /api/saveNewQuestion  model test", async () => {
+        const data = {question: '好きなテーマパークは？',user_id: 2,is_closed:false,updated:'2024-11-026 01:01:01'}
         const response = await questionsModel.save(data)
         console.log("🍌response",response)
         // expect(response).to.equal(JSON.stringify({ question_id: 6 }));
         expect(response).to.eql({ question_id: 6 });
     })
 
-    it("POST  /api/saveNewQuestion", async () => {
-        const data = {id: 7, question: '好きな乗り物は？',user_id: 2,is_closed:false,updated:'2024-11-027 01:01:01'}
+    it("POST  /api/saveNewQuestion  controller test", async () => {
+        const allQuestionsBefore = await questionsModel.all()
+        const data = {question: '好きな乗り物は？',user_id: 2}
         const response = await fetch("http://localhost:8080/api/saveNewQuestion",{
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
         })
         expect(response.status).to.equal(200 );
-        const allQuestions = await questionsModel.all()
-        console.log("questions--", allQuestions)
-        expect(allQuestions.length).to.equal(7)
+        const allQuestionsAfter = await questionsModel.all()
+        console.log("questions--", allQuestionsAfter)
+        expect(allQuestionsAfter.length).to.equal(allQuestionsBefore.length + 1)
     })
 
     it("POST  /api/saveNewOption", async () => {
