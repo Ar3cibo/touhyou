@@ -9,8 +9,14 @@ module.exports = {
 //all（allVoteCards）
     async all(limit){
         const data = await db(OPTIONS_TABLE).limit(limit)
-        console.log("data",data)
+        // console.log("data",data)
         return data
+    },
+
+//option_idの最大値を取得
+    async findMaxOptionId(question_id){
+        const maxId = await db(OPTIONS_TABLE).where({question_id}).max("option_id")
+        return maxId[0].max;
     },
 
 //id 指定（getVoteCard）

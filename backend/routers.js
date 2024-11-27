@@ -20,7 +20,7 @@ router.post("/api/userVoting",saveController.userVoting)
 //認証用
 
 router.use((req, res, next) => {
-    console.log("Session Data:", req.session); // セッション情報を表示
+    // console.log("Session Data:", req.session); // セッション情報を表示
     next(); // 次のミドルウェアに処理を渡す
 });
 
@@ -46,7 +46,6 @@ router.post("/login", (req, res) => {
     // 最初に設定したLocalStrategy(ユーザー名とパスワードでの認証)を使ってログイン
     passport.authenticate("local", (err, user) => {
         if (!user) return res.status(401).json({ message: "ログイン失敗！" });
-
         // sessionにログイン情報を格納
         req.logIn(user, () => {
             // res.redirect('/')
@@ -99,6 +98,16 @@ router.get("/logout", (req, res) => {
     req.logout(() => {
         res.json({ message: "ログアウト成功" });
     });
+});
+
+
+router.get('/session-test', (req, res) => {
+    if (req.isAuthenticated()) {
+        // セッションがある場合、そのセッション情報を返す
+        res.status(200).json({ sessionData: req.session });
+    } else {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
 });
 
 module.exports=router
