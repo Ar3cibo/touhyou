@@ -104,7 +104,8 @@ POST
 ```
 {
   question_id: number;
-  question: string;
+  option: string;
+  user_id: number;
 }
 ```
 

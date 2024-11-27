@@ -16,6 +16,16 @@ export function VoteCard(Props: IProps) {
     navigate("/answers/" + Props.currentVoteCard.question_id)
   }
 
+  const URL = process.env.VITE_URL;
+
+  async function handlerClickVoteDelete() {
+      const url = URL + "api/voteCard/" + Props.currentVoteCard.question_id + "/"
+      const res = await fetch(url, {method: "DELETE"})
+      const res_body = await res.json()
+      location.reload()
+      console.log(res_body)
+  }
+
   return(
     <Card m={'12px'}>
       <CardHeader>
@@ -30,6 +40,7 @@ export function VoteCard(Props: IProps) {
           })}
         </List>
         <Button ml={'auto'} width={'200px'} onClick={() => handlerClickMoveToAnswer()}>投票する</Button>
+        <Button variant="outline" colorScheme="red" ml={'auto'} width={'200px'} onClick={() => handlerClickVoteDelete()}>削除する</Button>
       </CardBody>
     </Card>
   )

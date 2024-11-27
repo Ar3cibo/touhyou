@@ -41,6 +41,47 @@ export function NewQuestionPage() {
     navigate('/')
   }
 
+  async function handlerClickQuestionAdd() {
+
+    const URL = process.env.VITE_URL;
+
+    //質問追加
+    const newQuestionData ={
+      question: newQuestion,
+      user_id: 5,
+    }
+
+    const url = URL + '/api/saveNewQuestion/'
+    const params = {method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(newQuestionData)
+    };
+
+    const res = await fetch(url, params);
+    const body = await res.json()
+    const { question_id } = body;
+    console.log('res', body);
+
+    //項目追加
+    for (let i = 0; i < aryAnswers.length; i++) {
+      const newOptionData = {
+        question_id: question_id,
+        option: aryAnswers[i],
+        user_id: 5,
+      }
+      const url = URL + '/api/saveNewOption/'
+      const params = {method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(newOptionData)
+      };
+
+      const res = await fetch(url, params);
+      const body = await res.json()
+      console.log('res', body);
+    }
+    navigate('/')
+  }
+
   return (
       <>
         <Box p={'12px'} m={'12px'} rounded={'6px'} borderWidth={'1px'} borderColor={'black'} w={'960px'} ml={'auto'} mr={'auto'}>
@@ -72,7 +113,7 @@ export function NewQuestionPage() {
         </Box>
             <Flex>
               <Button variant="outline" colorScheme="blue" m={'12px'} width={'300px'} onClick={() => {handlerClickMoveToIndex()}}>リストに戻る</Button>
-              <Button colorScheme="blue" m={'12px'} width={'300px'}>質問登録</Button>
+              <Button colorScheme="blue" m={'12px'} width={'300px'} onClick={() => handlerClickQuestionAdd()}>質問登録</Button>
             </Flex>
           </Container>
       </Box>

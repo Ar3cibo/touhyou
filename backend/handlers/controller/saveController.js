@@ -6,10 +6,10 @@ module.exports = {
 
     // /api/saveNewQuestion
     async saveNewQuestion(req, res) {
-        console.log("🍏🍏🍏🍏req----------" ,req  )//reqのみで取得しておりbodyに値が入っていない！
-        console.log("🍏🍏🍏🍏req.body----------" ,req.body  )//reqのみで取得しておりbodyに値が入っていない！
         const reqData = req.body
+        const maxQuestionId = await questionsModel.findMaxQuestionId()
         const saveData = {
+            id: maxQuestionId + 1,
             question: reqData.question,
             user_id: reqData.user_id,
             is_closed: false,
@@ -27,7 +27,9 @@ module.exports = {
     // /api/saveNewOption
     async saveNewOption(req, res) {
         const reqData = req.body;
-        const maxOptionId =optionsModel.findMaxOptionId(reqData.question_id)
+        console.log("req.body-----", reqData)//正常に取れている
+        const maxOptionId = await optionsModel.findMaxOptionId(reqData.question_id)
+        console.log("maxOptionId-----", maxOptionId)
         const saveData = {
             option_id: maxOptionId + 1,
             question_id: reqData.question_id,
@@ -36,7 +38,8 @@ module.exports = {
             updated: new Date()
         };
         try {
-            return await optionsModel.save(saveData)
+            await optionsModel.save(saveData)
+            res.status(200).json({question_id: reqData.question_id})
         } catch (error) {
             console.log("Internal Server Error(saveNewOptions)", error)
             res.status(500).json({error: "Internal Server Error"});
