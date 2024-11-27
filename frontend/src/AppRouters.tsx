@@ -16,7 +16,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/" element={<IndexPage />} />
           <Route path="/new" element={<NewQuestionPage />} />
-          <Route path="/answer" element={<AnswerQuestionPage />} />
+          <Route path="/answers/:question_id" element={<AnswerQuestionPage />} />
             <Route path="/sign-up" element={<SignUpView />} />
             <Route path="/login" element={<LoginView />} />
         </Routes>

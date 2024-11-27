@@ -41,7 +41,7 @@ GET
 
 ### url
 ```
-/api/voteCard/:id
+/api/voteCards/:id
 ```
 
 ### メソッド
