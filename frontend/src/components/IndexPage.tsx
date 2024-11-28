@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {IVoteCard} from "../globals";
 import {VoteCard} from "./VoteCard.tsx";
 
+
 export function IndexPage() {
 
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ export function IndexPage() {
 
   useEffect(() => {
     (async () => {
-      const _resultAllVoteCards = await fetch('http://localhost:8080/api/allVoteCards');
+      const URL = process.env.VITE_URL;
+      const _resultAllVoteCards = await fetch(URL + '/api/allVoteCards');
       const _aryVoteCards = await _resultAllVoteCards.json();
       setCurrentVoteCards(_aryVoteCards as IVoteCard[]);
     })();
