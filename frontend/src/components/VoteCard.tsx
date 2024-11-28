@@ -19,7 +19,7 @@ export function VoteCard(Props: IProps) {
   const URL = process.env.VITE_URL;
 
   async function handlerClickVoteDelete() {
-      const url = URL + "api/voteCard/" + Props.currentVoteCard.question_id + "/"
+      const url = URL + "/api/voteCard/" + Props.currentVoteCard.question_id
       const res = await fetch(url, {method: "DELETE"})
       const res_body = await res.json()
       location.reload()
